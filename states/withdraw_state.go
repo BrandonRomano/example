@@ -21,7 +21,7 @@ func GetWithdrawState(emitter fsm.Emitter, traverser fsm.Traverser) *fsm.State {
 		Transition: func(input interface{}) *fsm.State {
 			switch v := input.(type) {
 			case string:
-				amnt, err := strconv.ParseInt(v, 10, 64)
+				amnt, err := strconv.ParseInt(v, 10, 32)
 				if err != nil {
 					return nil
 				}

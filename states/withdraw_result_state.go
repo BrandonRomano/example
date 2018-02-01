@@ -15,9 +15,9 @@ func GetWithdrawResultState(emitter fsm.Emitter, traverser fsm.Traverser) *fsm.S
 			balance, _ := traverser.Fetch(varAccountBalance)
 
 			// Update balance
-			if withdraw.(int64) < balance.(int64) {
+			if withdraw.(int) < balance.(int) {
 				// Update balance
-				newBalance := balance.(int64) - withdraw.(int64)
+				newBalance := balance.(int) - withdraw.(int)
 				traverser.Upsert(varAccountBalance, newBalance)
 
 				// Prompt user
@@ -29,6 +29,7 @@ func GetWithdrawResultState(emitter fsm.Emitter, traverser fsm.Traverser) *fsm.S
 			}
 
 			// Switch to reenter bank
+			traverser.Delete(varWithdrawAmount)
 			traverser.SetCurrentState(stateReenterBank)
 			return nil
 		},

@@ -8,7 +8,7 @@ func GetStartState(emitter fsm.Emitter, traverser fsm.Traverser) *fsm.State {
 	return &fsm.State{
 		Slug: stateStart,
 		EntryAction: func() error {
-			traverser.Upsert(varAccountBalance, int64(500))
+			traverser.Upsert(varAccountBalance, 500)
 			return nil
 		},
 		ReentryAction: func() error {
