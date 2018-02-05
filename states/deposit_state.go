@@ -6,16 +6,16 @@ import (
 	"github.com/fsm/fsm"
 )
 
-func GetWithdrawState(emitter fsm.Emitter, traverser fsm.Traverser) *fsm.State {
+func GetDepositState(emitter fsm.Emitter, traverser fsm.Traverser) *fsm.State {
 	return &fsm.State{
-		Slug: stateWithdraw,
+		Slug: stateDeposit,
 		EntryAction: func() error {
-			emitter.Emit("Ok I can help you with that, how much would you like to withdraw?")
+			emitter.Emit("Ok I can help you with that, how much would you like to deposit?")
 			return nil
 		},
 		ReentryAction: func() error {
 			emitter.Emit("I'm not quite sure I understand...")
-			emitter.Emit("How much would you like to withdraw?")
+			emitter.Emit("How much would you like to deposit?")
 			return nil
 		},
 		Transition: func(input interface{}) *fsm.State {
@@ -26,7 +26,7 @@ func GetWithdrawState(emitter fsm.Emitter, traverser fsm.Traverser) *fsm.State {
 					return nil
 				}
 				traverser.Upsert(varTransactionAmount, int(amnt))
-				return GetWithdrawResultState(emitter, traverser)
+				return GetDepositResultState(emitter, traverser)
 			}
 			return nil
 		},

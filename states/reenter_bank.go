@@ -34,11 +34,11 @@ func GetReenterBankState(emitter fsm.Emitter, traverser fsm.Traverser) *fsm.Stat
 				case "withdraw":
 					return GetWithdrawState(emitter, traverser)
 				case "deposit":
-					return nil // TODO
+					return GetDepositState(emitter, traverser)
 				case "balance":
 					fallthrough
 				case "view balance":
-					return nil // TODO
+					return GetViewBalanceState(emitter, traverser)
 				}
 			}
 			return nil

@@ -6,8 +6,8 @@ import (
 
 	"github.com/TV4/graceful"
 	"github.com/fsm/alexa"
+	cachestore "github.com/fsm/cache-store"
 	"github.com/fsm/cli"
-	dynamostore "github.com/fsm/dynamo-store"
 	"github.com/fsm/example/states"
 	"github.com/fsm/fsm"
 	"github.com/fsm/messenger"
@@ -16,8 +16,6 @@ import (
 
 func main() {
 	startCLI()
-	// startAlexa()
-	// startFacebook()
 }
 
 func startCLI() {
@@ -79,9 +77,12 @@ func getStateMachine() fsm.StateMachine {
 		states.GetWithdrawState,
 		states.GetWithdrawResultState,
 		states.GetReenterBankState,
+		states.GetDepositState,
+		states.GetDepositResultState,
+		states.GetViewBalanceState,
 	}
 }
 
 func getStore() fsm.Store {
-	return dynamostore.New()
+	return cachestore.New()
 }
